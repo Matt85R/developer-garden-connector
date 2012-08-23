@@ -18,8 +18,6 @@
  */
 package com.test.android.developergarden;
 
-import com.test.android.developergarden.R;
-
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
@@ -33,6 +31,7 @@ public final class Preferences extends PreferenceActivity {
 	static final String PREFS_ENABLED = "enable_example";
 	static final String USER = "user_innosend";
 	static final String PASSWORD = "password_innosend";
+	static final String SENDER = "custom_sender";
 
 	//
 	/**

@@ -46,7 +46,7 @@ import de.ub0r.android.websms.connector.common.WebSMSException;
  */
 public class DeveloperGardenConnector extends Connector {
 	/** Tag for debug output. */
-	private static final String TAG = "example";
+	private static final String TAG = "developer-garden-test";
 
 	/**
 	 * {@inheritDoc}
@@ -94,11 +94,12 @@ public class DeveloperGardenConnector extends Connector {
 		// TODO: bootstrap settings.
 		// If you don't need to bootstrap any config, remove this method.
 		Log.i(TAG, "bootstrap");
-		if (1 != 1) {
-			// If something fails, you should abort this method
-			// by throwing a WebSMSException.
-			throw new WebSMSException("message to user.");
-		}
+
+		// if (1 != 1) {
+		// // If something fails, you should abort this method
+		// // by throwing a WebSMSException.
+		// throw new WebSMSException("message to user.");
+		// }
 		// The surrounding code will assume positive result of this method,
 		// if no WebSMSException was thrown.
 	}
@@ -153,13 +154,24 @@ public class DeveloperGardenConnector extends Connector {
 				.getDefaultSharedPreferences(context).getString(
 						Preferences.PASSWORD, null);
 
+		String sender = PreferenceManager.getDefaultSharedPreferences(context)
+				.getString(Preferences.SENDER, null);
+
 		TelekomUPAuth auth = new TelekomUPAuth(username, password);
+		auth.requestAccessToken();
+
+		// if (!auth.hasValidToken()) {
+		// throw new RuntimeException("Authentication error");
+		// }
+
 		SendSmsClient client = new SendSmsClient(auth, ServiceEnvironment.MOCK);
+
 		SendSmsRequest request = new SendSmsRequest();
+
 		// request.setNumber("+49yourFirstNumber,+49yourSecondNumber");
 		request.setNumber(number);
 		request.setMessage(text);
-		request.setOriginator("Originator");
+		request.setOriginator(sender);
 		request.setFlash(false); // Not as flash message
 		request.setAccount(null);
 
